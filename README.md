@@ -1,5 +1,7 @@
 #  AI-lab Experimental Templates
 
+New candidate AI templates can be added under the `templates` folder. See `templates/sampleapp` for a sample template directory structure.
+
 ## TODO: change instructions to use RHDH directly
 
 ## Usage in Red Hat Developer Hub
