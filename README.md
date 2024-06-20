@@ -1,6 +1,6 @@
 #  AI-lab Experimental Templates
 
-New candidate AI templates can be added under the `templates` folder. See `templates/sampleapp` for a sample template directory structure.
+New candidate AI templates can be added under the `templates` folder. See `templates/sampleapp` for a sample template directory structure. Each template should have its own sub-directory under the templates folder.
 
 ## TODO: change instructions to use RHDH directly
 
