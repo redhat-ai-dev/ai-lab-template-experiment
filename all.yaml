@@ -6,3 +6,5 @@ metadata:
 spec:
   targets:
     - ./templates/sampletemplate/template.yaml
+    - ./templates/codegen/template.yaml
+    - ./templates/chatbot/template.yaml

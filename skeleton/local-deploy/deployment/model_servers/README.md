@@ -1,0 +1,1 @@
+The models in this directory are sourced from https://github.com/containers/ai-lab-recipes/tree/main/model_servers
