@@ -202,7 +202,6 @@ spec:
         url: ../../skeleton/local-deploy
         targetPath: source
         copyWithoutRender:
-          - deployment/model-servers
           - .assets
         values:
           imageRegistry: ${{ parameters.imageRegistry }}
@@ -212,6 +211,15 @@ spec:
           name: ${{ parameters.name }}
           description: Chatbot Application example with LLM enabled chat applications
           modelServer: ${{ parameters.modelServerLocal }}
+    - id: fetch-model-server
+      name: Fetch Model Server For Local Deployment
+      if: ${{ parameters.deployMethod !== 'Openshift' }}
+      action: fetch:template
+      input:
+        url: ../../skeleton/model_servers/${{ parameters.modelServerLocal }}
+        targetPath: source/deployment/model_server
+        copyWithoutRender:
+          - model_servers/${{ parameters.modelServerLocal }}
     - id: fetch-github-action
       name: Fetch GitHub Action
       action: fetch:plain
@@ -395,3 +403,6 @@ spec:
       - title: Open GitOps Resource in catalog
         icon: catalog
         entityRef: ${{ steps['register-gitops'].output.entityRef }}
+      - title: Local Deployment Instructions
+        if: ${{ parameters.deployMethod === 'Local' }}
+        url: https://${{ parameters.githubServer if parameters.hostType === 'GitHub' else parameters.gitlabServer }}/${{ parameters.repoOwner }}/${{ parameters.repoName }}/deployment/README.md
