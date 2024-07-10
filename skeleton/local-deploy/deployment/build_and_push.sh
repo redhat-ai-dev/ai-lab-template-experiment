@@ -1,16 +1,20 @@
 #!/bin/bash
 
-if [ -z "$1" ]; then
-  echo "FAILURE: Missing argument"
-  echo "Usage: bash build_and_push.sh <path to docker/containerfile>"
-  exit 2
-fi
+dir=$(dirname $0)
 
-IMAGE_NAME="${{ values.imageRegistry }}/${{ values.imageOrg }}/${{ values.imageName }}"
+MODEL_PATH=${MODLE_PATH:-"$dir/./model_server"}
+APP_PATH=${APP_PATH:-"$dir/../Containerfile"}
+
 IMAGE_TAG="latest"
-IMAGE_FULL="$IMAGE_NAME":"$IMAGE_TAG"
+APP_IMAGE_NAME="${{ values.imageRegistry }}/${{ values.imageOrg }}/${{ values.imageName }}"
+APP_IMAGE_FULL="$APP_IMAGE_NAME":"$IMAGE_TAG"
+MODEL_IMAGE_NAME="${{ values.imageRegistry }}/${{ values.imageOrg }}/${{ values.modelServer }}"
+MODEL_IMAGE_FULL="$MODEL_IMAGE_NAME":"$IMAGE_TAG"
 
-podman build -t "$IMAGE_FULL" -f "$1"
-podman push "$IMAGE_FULL"
+podman build -t "$MODEL_IMAGE_FULL" -f "$MODEL_PATH"/base/Containerfile "$MODEL_PATH"
+podman push "$MODEL_IMAGE_FULL"
+
+podman build -t "$APP_IMAGE_FULL" -f "$APP_PATH"
+podman push "$APP_IMAGE_FULL"
 
 exit 0

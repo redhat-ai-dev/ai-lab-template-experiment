@@ -64,10 +64,16 @@ podman login quay.io
 
 To rebuild images you can run the following command from the root of the repository:
 ```
-bash deployment/build_and_push.sh <absolute path to docker/containerfile>
+bash deployment/build_and_push.sh
 ```
 
-This script requries you to provide the absolute path to your docker/containerfile as an argument. The script will perform both the building of the image as well as pushing it to the registry location you specified as part of the developer hub setup for this application. You can view the templated values in `build_and_push.sh`.
+You can override the default locations of the model server and application Containerfiles if required:
+```
+export MODEL_PATH=<new path to directory>
+```
+```
+export APP_PATH=<new path to containerfile>
+```
 
 ## Cleanup
 
