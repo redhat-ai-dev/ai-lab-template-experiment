@@ -29,6 +29,8 @@ Deploying via the `AI Lab` extension requires adding the generated `user-catalog
 
 A `deploy.sh` script was generated as part of the template that is designed to assist you in properly setting up your application to run through `Podman Desktop AI Lab`. By default this script will deploy to the standard installation location `$HOME/.local/share/containers/podman-desktop/extensions-storage/redhat.ai-lab`. If you would like to redirect this you must first update the `AI_LAB_HOME` environment variable.
 
+**Some users may discover that `$HOME/.local/share/containers/podman-desktop` exists but `extensions-storage/redhat.ai-lab` does not exist within. In this event you can run `mkdir -p $HOME/.local/share/containers/podman-desktop/extensions-storage/redhat.ai-lab` before moving forward. If you are using `AI_LAB_HOME` then run `mkdir -p $AI_LAB_HOME/extensions-storage/redhat.ai-lab`**
+
 Example:
 ```
 export AI_LAB_HOME=<new location>
