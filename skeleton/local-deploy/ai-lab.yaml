@@ -5,7 +5,7 @@ application:
   description: AI Application Being Locally Deployed
   containers:
     - name: ${{ values.modelServer }}_server
-      contextdir: ./deployment/model_server/${{ values.modelServer }}
+      contextdir: ./deployment/model_server
       containerfile: ./base/Containerfile
       model-service: true
       backend:

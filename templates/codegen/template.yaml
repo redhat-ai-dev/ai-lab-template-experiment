@@ -405,4 +405,4 @@ spec:
         entityRef: ${{ steps['register-gitops'].output.entityRef }}
       - title: Local Deployment Instructions
         if: ${{ parameters.deployMethod === 'Local' }}
-        url: https://${{ parameters.githubServer if parameters.hostType === 'GitHub' else parameters.gitlabServer }}/${{ parameters.repoOwner }}/${{ parameters.repoName }}/deployment/README.md
+        url: https://${{ parameters.githubServer if parameters.hostType === 'GitHub' else parameters.gitlabServer }}/${{ parameters.repoOwner }}/${{ parameters.repoName }}/blob/${{ parameters.branch }}/deployment/README.md
