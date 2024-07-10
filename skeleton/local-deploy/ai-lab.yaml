@@ -4,7 +4,7 @@ application:
   name: AI Application
   description: AI Application Being Locally Deployed
   containers:
-    - name: llamacpp-server
+    - name: ${{ values.modelServer }}_server
       contextdir: ./deployment/model_servers/llamacpp_python
       containerfile: ./base/Containerfile
       model-service: true
@@ -15,7 +15,7 @@ application:
         - amd64
       ports:
         - 8001
-      image: ${{ values.imageRegistry }}/${{ values.imageOrg }}/llamacpp_python:latest
+      image: ${{ values.imageRegistry }}/${{ values.imageOrg }}/${{ values.modelServer }}:latest
     - name: streamlit-summary-app
       contextdir: .
       containerfile: Containerfile

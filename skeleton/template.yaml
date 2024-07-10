@@ -80,8 +80,8 @@ spec:
                   description: The model server container to use
                   type: string
                   enum:
-                    - llama.cpp-python
-                  default: llama.cpp-python
+                    - llamacpp_python
+                  default: llamacpp_python
               required:
                 - modelServerLocal
     - title: Application Repository Information
@@ -211,6 +211,7 @@ spec:
           srcRepoURL: https://${{ parameters.githubServer if parameters.hostType === 'GitHub' else parameters.gitlabServer }}/${{ parameters.repoOwner }}/${{ parameters.repoName }}
           name: ${{ parameters.name }}
           description: sed.edit.DESCRIPTION
+          modelServer: ${{ parameters.modelServerLocal }}
     - id: fetch-github-action
       name: Fetch GitHub Action
       action: fetch:plain
