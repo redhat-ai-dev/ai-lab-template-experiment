@@ -1,27 +1,27 @@
 {
-	"recipes": [
-	{
-      "id": "${{ values.name }}",
-      "description" : "${{ values.description }}",
-      "name" : "Test Application",
-      "repository": "${{ values.srcRepoURL }}",
-      "icon": "natural-language-processing",
-      "categories": [
-        "local-development"
-      ],
-      "readme": "# Local Deploy",
-      "models": [
-        "hf.instructlab.granite-7b-lab-GGUF",
-        "hf.instructlab.merlinite-7b-lab-GGUF"
-      ]
-    }
-	],
+  "recipes":[
+     {
+        "id": "${{ values.name }}",
+        "description": "${{ values.description }}",
+        "name": "Test Application",
+        "repository": "${{ values.srcRepoURL }}",
+        "icon": "natural-language-processing",
+        "categories":[
+           "local-development"
+        ],
+        "readme": "# Local Deploy",
+        "models":[
+           "hf.instructlab.granite-7b-lab-GGUF",
+           "hf.instructlab.merlinite-7b-lab-GGUF"
+        ]
+     }
+  ],
   "models": [],
-  "categories": [
-    {
+  "categories":[
+     {
         "id": "local-development",
         "name": "Local Development",
-        "description" : "Applications currently in development."
-      }
+        "description": "Applications currently in development."
+     }
   ]
 }
