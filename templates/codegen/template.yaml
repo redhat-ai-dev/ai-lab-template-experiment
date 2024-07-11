@@ -404,5 +404,6 @@ spec:
         icon: catalog
         entityRef: ${{ steps['register-gitops'].output.entityRef }}
       - title: Local Deployment Instructions
-        if: ${{ parameters.deployMethod === 'Local' }}
-        url: https://${{ parameters.githubServer if parameters.hostType === 'GitHub' else parameters.gitlabServer }}/${{ parameters.repoOwner }}/${{ parameters.repoName }}/blob/${{ parameters.branch }}/deployment/README.md
+        url: ${{ [steps['publish-github'].output.repoContentsUrl, '/deployment/README.md'] | join if steps['publish-github'].output and parameters.deployMethod === 'Local' }}
+      - title: Local Deployment Instructions
+        url: ${{ [steps['publish-gitlab'].output.repoContentsUrl, '/deployment/README.md'] | join if steps['publish-gitlab'].output and parameters.deployMethod === 'Local' }}
