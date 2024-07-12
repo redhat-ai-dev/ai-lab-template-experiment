@@ -1,0 +1,27 @@
+version: v1.0
+application:
+  type: language
+  name: AI Application
+  description: AI Application Being Locally Deployed
+  containers:
+    - name: ${{ values.modelServer }}_server
+      contextdir: ./deployment/model_server
+      containerfile: ./base/Containerfile
+      model-service: true
+      backend:
+        - llama
+      arch:
+        - arm64
+        - amd64
+      ports:
+        - 8001
+      image: ${{ values.imageRegistry }}/${{ values.imageOrg }}/${{ values.modelServer }}:latest
+    - name: streamlit-summary-app
+      contextdir: .
+      containerfile: Containerfile
+      arch:
+        - arm64
+        - amd64
+      ports:
+        - 8501
+      image: ${{ values.imageRegistry }}/${{ values.imageOrg }}/${{ values.imageName }}:latest
