@@ -12,11 +12,26 @@
         "readme": "# Local Deploy",
         "models":[
            "hf.instructlab.granite-7b-lab-GGUF",
-           "hf.instructlab.merlinite-7b-lab-GGUF"
+           "hf.instructlab.merlinite-7b-lab-GGUF",
+           "my-imported-test-model"
         ]
      }
   ],
-  "models": [],
+  "models": [
+   {
+      "id": "my-imported-test-model",
+      "name": "my-imported-test-model",
+      "description": "# Hugging Face model that is not part of the AI lab extension",
+      "hw": "CPU",
+      "registry": "Hugging Face",
+      "url": "https://huggingface.co/MaziyarPanahi/Mistral-7B-Instruct-v0.3-GGUF/resolve/main/Mistral-7B-Instruct-v0.3.Q5_K_M.gguf",
+      "memory": 5519032976,
+      "properties": {
+        "chatFormat": "openchat"
+      },
+      "sha256": "16617265368ffaa5f0c67b320a1df4b40b0c8e990a91cf5722fc2159e65f559f"
+    }
+  ],
   "categories":[
      {
         "id": "local-development",
