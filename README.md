@@ -65,7 +65,7 @@ To update the templates from these or any new samples you update the list of imp
 
  [./generate.sh](./generate.sh) to generate all the templates before commit to this repository.
 
- [import-ai-lab-samples](./scripts/import-ai-lab-samples), [import-gitops-template](./scripts/import-gitops-template) and [update-tekton-definition](./scripts/import-gitops-template) take repourl and branch name as ENV when running the scripts. `SAMPLE_REPO`/`GITOPS_REPO`/`PIPELINE_REPO` and `SAMPLE_BRANCH`/`GITOPS_BRANCH`/`PIPELINE_BRANCH` can be set respectively. 
+ [import-ai-lab-samples](./scripts/import-ai-lab-samples), [import-gitops-template](./scripts/import-gitops-template) and [update-tekton-definition](./scripts/import-gitops-template) take repo url and branch name as ENV when running the scripts. `SAMPLE_REPO`/`GITOPS_REPO`/`PIPELINE_REPO` and `SAMPLE_BRANCH`/`GITOPS_BRANCH`/`PIPELINE_BRANCH` can be set respectively. 
 
 
 

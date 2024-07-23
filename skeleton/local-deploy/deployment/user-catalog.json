@@ -21,7 +21,7 @@
    {
       "id": "my-imported-test-model",
       "name": "my-imported-test-model",
-      "description": "# Hugging Face model that is not part of the AI lab extension",
+      "description": "Hugging Face model that is not part of the AI lab extension",
       "hw": "CPU",
       "registry": "Hugging Face",
       "url": "https://huggingface.co/MaziyarPanahi/Mistral-7B-Instruct-v0.3-GGUF/resolve/main/Mistral-7B-Instruct-v0.3.Q5_K_M.gguf",
