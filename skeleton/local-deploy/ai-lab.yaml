@@ -16,7 +16,7 @@ application:
       ports:
         - 8001
       image: ${{ values.imageRegistry }}/${{ values.imageOrg }}/${{ values.modelServer }}:latest
-    - name: streamlit-summary-app
+    - name: sample-app
       contextdir: .
       containerfile: Containerfile
       arch:

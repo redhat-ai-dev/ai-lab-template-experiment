@@ -1,18 +1,27 @@
 
+# Flags scripts to use experiment branch for the samples
+export SAMPLE_BRANCH=experiment
+
 SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )" 
 ROOT_DIR=$(realpath $SCRIPTDIR/..)
 SKELETON_DIR=$ROOT_DIR/skeleton
 TEMPLATE_DIR=$ROOT_DIR/templates
 
-REPO="https://github.com/redhat-ai-dev/ai-lab-samples"
+REPO="${SAMPLE_REPO:-https://github.com/redhat-ai-dev/ai-lab-samples}"
+BRANCH="${SAMPLE_BRANCH:-main}"
 DIRNAME=$(basename $REPO)
+
 mkdir -p $SCRIPTDIR/samples 
 SAMPLE_DIR=$SCRIPTDIR/samples/$DIRNAME 
+
 if [ -d $SAMPLE_DIR ]; then
     (cd $SAMPLE_DIR; git pull 2>&1 > /dev/null)
 else 
     (cd $SCRIPTDIR/samples;  git clone $REPO 2>&1 > /dev/null)
 fi
+
+(cd $SAMPLE_DIR; git checkout $BRANCH; git pull)
+
 
 cd $SAMPLE_DIR
 for f in */; do
@@ -46,6 +55,10 @@ for f in */; do
         sed -i "s!sed.edit.APPTAGS!$APP_TAGS!g" $DEST/template.yaml
         sed -i "s!sed.edit.CATALOG_DESCRIPTION!Secure Supply Chain Example for $APP_DESC!g" $DEST/template.yaml
 
+        if [ $SUPPORT_VLLM == false ]; then
+            sed -i '/# SED_MODEL_SERVER_START/,/# SED_MODEL_SERVER_END/d' $DEST/template.yaml
+        fi
+
         source $ROOT_DIR/properties
         cat $DEST/template.yaml | envsubst > $DEST/new-template.yaml
         mv $DEST/new-template.yaml $DEST/template.yaml
@@ -54,4 +67,3 @@ done
 
 
 rm -rf $SCRIPTDIR/samples
-
