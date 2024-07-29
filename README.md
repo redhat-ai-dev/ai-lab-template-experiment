@@ -8,11 +8,11 @@ New candidate AI templates can be added under the `templates` folder. See `templ
 
 To import these templates, register a component in on the golden path template page 
 
-![Screenshot](register.png)
+![Screenshot](./assets/register.png)
 
 Import `https://github.com/redhat-ai-dev/ai-lab-template/blob/main/all.yaml`
 
-![Screenshot](register2.png)
+![Screenshot](./assets/register2.png)
 
 ## Usage in backstage 
 
@@ -27,7 +27,7 @@ Add the following to your `app-config.yaml` file in your backstage configuration
 
 This will add the samples into a set of backstage templates.
 
-![Screenshot](catalog.png)
+![Screenshot](./assets/catalog.png)
 
 
 ## On-prem host support
@@ -46,11 +46,11 @@ On `Application Repository Information` Page, provide your Git host in the `Repo
 
 **Note:** Please Ensure the correct `Host Type` is selected
 
-![Screenshot](on-prem-git.png)
+![Screenshot](./assets/on-prem-git.png)
 
 On `Deployment information` Page, provide your Quay host in the `Image Registry`
 
-![Screenshot](on-prem-quay.png)
+![Screenshot](./assets/on-prem-quay.png)
  
 ## Contributing
 
@@ -68,7 +68,9 @@ To update the templates from these or any new samples you update the list of imp
  [import-ai-lab-samples](./scripts/import-ai-lab-samples), [import-gitops-template](./scripts/import-gitops-template) and [update-tekton-definition](./scripts/import-gitops-template) take repo url and branch name as ENV when running the scripts. `SAMPLE_REPO`/`GITOPS_REPO`/`PIPELINE_REPO` and `SAMPLE_BRANCH`/`GITOPS_BRANCH`/`PIPELINE_BRANCH` can be set respectively. 
 
 
+## Adding Custom Models
 
+For information regarding adding custom models that are not pre-packaged as part of the Podman Desktop AI Lab extension see [adding-custom-models.md](./adding-custom-models.md)
 
 
 ### MacOS 
