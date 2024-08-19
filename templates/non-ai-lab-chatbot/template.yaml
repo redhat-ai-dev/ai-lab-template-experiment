@@ -67,7 +67,7 @@ spec:
                     - vLLM
                   default: llama.cpp
                   ui:help: If you choose vLLM, ensure your cluster has Nvidia GPU supported, and
-                    is with enough cpu and memory
+                    has enough CPU and memory resources
               required:
                 - namespace
                 - modelServerOpenshift
@@ -132,7 +132,7 @@ spec:
                   type: string
                   default: gitlab.com
                   ui:help: "You can also provide the on-prem gitlab server, example: gitlab-gitlab.apps.cluster-ljg9z.sandbox219.opentlc.com"
-    - title: Deployment information
+    - title: Deployment Information
       required:
         - imageRegistry
         - imageOrg
@@ -333,7 +333,7 @@ spec:
         protectDefaultBranch: false
         repoVisibility: "public"
     - id: wait-for-github-repository
-      name: Waiting for repository availability
+      name: Waiting for Repository Availability
       action: 'debug:wait'
       input:
         seconds: 3
@@ -365,7 +365,6 @@ spec:
     # PR with empty commit
     - id: trigger-build-pr
       name: PR to Trigger Pipeline Build
-      
       action: publish:github:pull-request
       if: ${{ parameters.hostType === 'GitHub' and parameters.deployMethod === 'Openshift' }}
       input:
@@ -397,10 +396,10 @@ spec:
         url: ${{ steps['publish-github'].output.remoteUrl if steps['publish-github'].output else steps['publish-gitlab'].output.remoteUrl }}
       - title: GitOps Repository
         url: ${{ steps['publish-github-gitops'].output.remoteUrl if steps['publish-github-gitops'].output else steps['publish-gitlab-gitops'].output.remoteUrl }}
-      - title: Open Component in catalog
+      - title: Open Component in Catalog
         icon: catalog
         entityRef: ${{ steps['register'].output.entityRef }}
-      - title: Open GitOps Resource in catalog
+      - title: Open GitOps Resource in Catalog
         icon: catalog
         entityRef: ${{ steps['register-gitops'].output.entityRef }}
       - title: Local Deployment Instructions
