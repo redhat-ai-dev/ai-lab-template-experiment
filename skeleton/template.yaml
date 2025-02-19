@@ -164,14 +164,22 @@ spec:
       action: fetch:template
       input:
         url: ./content
+        targetPath: source   
+    - id: fetch-skeleton-docs
+      name: Fetch Skeleton Techdocs
+      action: fetch:template
+      input:
+        url: ../../skeleton/techdoc
         targetPath: source
         values:
           name: ${{ parameters.name }}
+          appSummary: ${APP_SUMMARY}
           namespace: ${{ parameters.namespace }}
           repoURL: https://${{ parameters.githubServer if parameters.hostType === 'GitHub' else parameters.gitlabServer }}/${{ parameters.repoOwner }}/${{ parameters.repoName }}-gitops
           srcRepoURL: https://${{ parameters.githubServer if parameters.hostType === 'GitHub' else parameters.gitlabServer }}/${{ parameters.repoOwner }}/${{ parameters.repoName }}
           appContainer: ${{ 'quay.io/redhat-ai-dev/ai-template-bootstrap-app:latest' if parameters.hostType === 'GitHub' else '${APP_INTERFACE_CONTAINER}' }}
           appPort: ${APP_PORT}
+          appRunCommand: "${APP_RUN_COMMAND}"
           modelServiceContainer: ${MODEL_SERVICE_CONTAINER}
           modelServicePort: ${MODEL_SERVICE_PORT}          
     # Renders all the template variables into the files and directory names and content, and places the result in the workspace.
@@ -270,7 +278,7 @@ spec:
           appName: ${{ parameters.name }}-gitops # for now just use the component name, since it's single component app
           description: This is GitOps manifest for ${{ parameters.name }}
           namespace: ${{ parameters.namespace }}
-          rhtapNamespace: ${RHTAP__DEFAULT__NAMESPACE}
+          rhdhNamespace: ${RHDH__DEFAULT__NAMESPACE}
           defaultDeployNamespace: ${DEFAULT__DEPLOYMENT__NAMESPACE__PREFIX}
           # example: github.com?owner=<owner>&repo=<srcRepo>, the gitops repo name will be <srcRepo>-gitops
           repoURL: https://${{ parameters.githubServer if parameters.hostType === 'GitHub' else parameters.gitlabServer }}/${{ parameters.repoOwner }}/${{ parameters.repoName }}-gitops
