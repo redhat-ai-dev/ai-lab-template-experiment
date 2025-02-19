@@ -11,6 +11,8 @@ REPO="${SAMPLE_REPO:-https://github.com/redhat-ai-dev/ai-lab-samples}"
 BRANCH="${SAMPLE_BRANCH:-main}"
 DIRNAME=$(basename $REPO)
 
+TEMPLATE_TECHDOC_TYPE=app
+
 mkdir -p $SCRIPTDIR/samples 
 SAMPLE_DIR=$SCRIPTDIR/samples/$DIRNAME 
 
@@ -24,23 +26,23 @@ fi
 
 
 cd $SAMPLE_DIR
+# get readme to source component doc
+cp -r $SAMPLE_DIR/README.md  $SKELETON_DIR/techdoc/docs/source-component.md
+
 for f in */; do
     if [ -d "$f" ]; then
         # $f is a directory
         SAMPLENAME=$(basename $f)
-        DEST=$ROOT_DIR/templates/$SAMPLENAME
+        DEST=$TEMPLATE_DIR/$SAMPLENAME
         rm -rf $DEST
         mkdir -p $DEST
         cp -r $SAMPLE_DIR/$SAMPLENAME $DEST/content
 
+        # add template card docs
+        cp -r $SKELETON_DIR/template-card-techdocs/$TEMPLATE_TECHDOC_TYPE/docs $DEST/docs
+        cp -r $SKELETON_DIR/template-card-techdocs/mkdocs.yml $DEST/mkdocs.yml
+
         cp $ROOT_DIR/skeleton/template.yaml $DEST/template.yaml
-
-        cp -r $ROOT_DIR/skeleton/techdoc/docs  $DEST/content/docs
-        cp -r $ROOT_DIR/skeleton/techdoc/mkdocs.yml  $DEST/content/mkdocs.yml
-
-        # get readme to source component doc
-        cp -r $SAMPLE_DIR/README.md  $DEST/content/docs/source-component.md
-        cp -r $ROOT_DIR/skeleton/source-repo/.tekton/README.md  $DEST/content/docs/pipelines.md
 
         source $SCRIPTDIR/envs/$SAMPLENAME
 
@@ -53,7 +55,12 @@ for f in */; do
         sed -i "s!sed.edit.TITLE!$APP_DISPLAY_NAME!g" $DEST/template.yaml
         sed -i "s!sed.edit.DESCRIPTION!$APP_DESC!g" $DEST/template.yaml
         sed -i "s!sed.edit.APPTAGS!$APP_TAGS!g" $DEST/template.yaml
-        sed -i "s!sed.edit.CATALOG_DESCRIPTION!Secure Supply Chain Example for $APP_DESC!g" $DEST/template.yaml
+        sed -i "s!sed.edit.CATALOG_DESCRIPTION!Secure Supply Chain Example for $APP_DISPLAY_NAME!g" $DEST/template.yaml
+
+        sed -i "s!sed.edit.APP_DISPLAY_NAME!$APP_DISPLAY_NAME!g" $DEST/docs/index.md
+        sed -i "s!sed.edit.TEMPLATE_SOURCE_URL!$TEMPLATE_SOURCE_URL!g" $DEST/docs/index.md
+        sed -i "s!sed.edit.LLM_MODEL_NAME!$LLM_MODEL_NAME!g" $DEST/docs/index.md
+        sed -i "s!sed.edit.LLM_MODEL_SRC!$LLM_MODEL_SRC!g" $DEST/docs/index.md
 
         if [ $SUPPORT_VLLM == false ]; then
             sed -i '/# SED_MODEL_SERVER_START/,/# SED_MODEL_SERVER_END/d' $DEST/template.yaml
