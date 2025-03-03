@@ -43,14 +43,11 @@ spec:
           title: Model Server
           description: |
             llama.cpp: A Python binding of LLM inference in C/C++ with minimal setup. | [Learn more](https://github.com/containers/ai-lab-recipes/tree/main/model_servers/llamacpp_python)
-
-            vLLM: A high throughput, memory efficient inference and serving engine with GPU support for LLMs in OpenShift. If you choose vLLM, ensure that your cluster has Nvidia GPU supported (with compute capability 7.0 or higher). Also, it should have enough CPU & memory resources for the model you would like to work with. | [Learn more](https://github.com/rh-aiservices-bu/llm-on-openshift/tree/main/llm-servers/vllm/gpu)
           # SED_LLM_LLAMA_SERVER_START
           default: llama.cpp
           # SED_LLM_LLAMA_SERVER_END
           type: string
           enum:
-            - vLLM
             # SED_LLM_LLAMA_SERVER_START
             - llama.cpp
             # SED_LLM_LLAMA_SERVER_END
@@ -107,16 +104,6 @@ spec:
                           - modelEndpointSecretKey
             # SED_EXISTING_SERVER_END
             # SED_LLM_SERVER_START
-            - properties:
-                modelServer:
-                  const: vLLM
-                modelNameDeployed:
-                  title: Model Name
-                  description: Text Generation | Apache-2.0 | [Learn more](https://huggingface.co/instructlab/granite-7b-lab)
-                  default: instructlab/granite-7b-lab
-                  type: string
-                  enum:
-                    - instructlab/granite-7b-lab
             # SED_LLM_LLAMA_SERVER_START
             - properties:
                 modelServer:
@@ -212,14 +199,6 @@ spec:
           ui:autofocus: true
           ui:options:
             rows: 5
-        # SED_APP_SUPPORT_START
-        rhoaiSelected:
-          title: Create Workbench for OpenShift AI
-          description: Deploy to OpenShift AI in your app's namespace
-          type: boolean
-          default: false
-          ui:help: If you select this field, you must ensure that Red Hat OpenShift AI has been installed on your cluster.
-          # SED_APP_SUPPORT_END
   # These steps are executed in the scaffolder backend, using data that we gathered
   # via the parameters above.
   steps:
@@ -354,10 +333,6 @@ spec:
           modelEndpointSecretKey: ${{ parameters.modelEndpointSecretKey }}
           includeModelEndpointSecret: ${{ parameters.includeModelEndpointSecret }}
           # SED_EXISTING_SERVER_END
-          # SED_APP_SUPPORT_START
-          # for RHOAI
-          rhoaiSelected: ${{ parameters.rhoaiSelected }}
-          # SED_APP_SUPPORT_END
           supportApp: true
     - action: fs:rename
       id: renameComponentDir
