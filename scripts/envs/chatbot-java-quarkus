@@ -19,7 +19,7 @@ export MODEL_SERVICE_SRC="https://github.com/containers/ai-lab-recipes/tree/main
 
 # https://github.com/rh-aiservices-bu/llm-on-openshift/tree/main/llm-servers/vllm/gpu
 export VLLM_CONTAINER="quay.io/rh-aiservices-bu/vllm-openai-ubi9:0.4.2"
-export VLLM_DESC="A high throughput, memory efficient inference and serving engine with GPU support for LLMs in OpenShift"
+export VLLM_DESC="A high throughput, memory efficient inference and serving engine with GPU support for LLMs in OpenShift."
 export VLLM_SRC="https://github.com/rh-aiservices-bu/llm-on-openshift/tree/main/llm-servers/vllm/gpu"
 
 # https://huggingface.co/instructlab/granite-7b-lab
