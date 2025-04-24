@@ -229,6 +229,13 @@ spec:
           appRunCommand: "java -jar target/quarkus-app/quarkus-run.jar"
           modelServiceContainer: quay.io/ai-lab/llamacpp_python:latest
           modelServicePort: 8001
+          customModelName: ${{ parameters.modelName }}
+          modelName: instructlab/granite-7b-lab
+          modelSrc: https://huggingface.co/instructlab/granite-7b-lab
+          modelServerName: ${{ parameters.modelServer }}
+          customModelAndModelServerSelected: ${{ true if parameters.modelServer === 'Existing model server' else false }}
+          modelServiceSrcVLLM: https://github.com/rh-aiservices-bu/llm-on-openshift/tree/main/llm-servers/vllm/gpu
+          modelServiceSrcOther: https://github.com/containers/ai-lab-recipes/tree/main/model_servers/llamacpp_python
     # Renders all the template variables into the files and directory names and content, and places the result in the workspace.
     - id: fetch-skeleton
       name: Fetch Skeleton
@@ -334,6 +341,12 @@ spec:
           includeModelEndpointSecret: ${{ parameters.includeModelEndpointSecret }}
           # SED_EXISTING_SERVER_END
           supportApp: true
+          modelServerName: ${{ parameters.modelServer }}
+          modelServiceSrcVLLM: ${MODEL_SERVICE_SRC_VLLM}
+          modelServiceSrcOther: ${MODEL_SERVICE_SRC_OTHER}
+          imageRegistry: ${{ parameters.imageRegistry }}
+          imageOrg: ${{ parameters.imageOrg }}
+          imageName: ${{ parameters.imageName }}
     - action: fs:rename
       id: renameComponentDir
       name: Rename Component Directory

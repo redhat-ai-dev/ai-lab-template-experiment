@@ -2,10 +2,12 @@ apiVersion: scaffolder.backstage.io/v1beta3
 # https://backstage.io/docs/features/software-catalog/descriptor-format#kind-template
 kind: Template
 metadata:
-  name: sed.edit.NAME
-  title: sed.edit.TITLE
+  name: sed.edit.APP_NAME
+  title: sed.edit.APP_DISPLAY_NAME
   description: sed.edit.DESCRIPTION
   tags: sed.edit.APPTAGS
+  annotations:
+    backstage.io/techdocs-ref: dir:.
 spec:
   type: service
   # These parameters are used to generate the input form in the frontend, and are
@@ -54,7 +56,7 @@ spec:
                 namespace:
                   title: Deployment Namespace
                   type: string
-                  default: rhtap-app
+                  default: rhdh-app
                   ui:autofocus: true
                   ui:options:
                     rows: 5
@@ -181,7 +183,14 @@ spec:
           appPort: ${APP_PORT}
           appRunCommand: "${APP_RUN_COMMAND}"
           modelServiceContainer: ${MODEL_SERVICE_CONTAINER}
-          modelServicePort: ${MODEL_SERVICE_PORT}          
+          modelServicePort: ${MODEL_SERVICE_PORT}
+          customModelName: ${{ parameters.modelName }}
+          modelName: ${MODEL_NAME}
+          modelSrc: ${MODEL_SRC}
+          modelServerName: ${{ parameters.modelServer }}
+          customModelAndModelServerSelected: ${{ true if parameters.modelServer === 'Existing model server' else false }}
+          modelServiceSrcVLLM: ${MODEL_SERVICE_SRC_VLLM}
+          modelServiceSrcOther: ${MODEL_SERVICE_SRC_OTHER}     
     # Renders all the template variables into the files and directory names and content, and places the result in the workspace.
     - id: fetch-skeleton
       name: Fetch Skeleton
@@ -201,7 +210,7 @@ spec:
           tags: 'sed.edit.APPTAGS'
           owner: ${{ parameters.owner }} 
           repoSlug: '${{ parameters.imageOrg }}/${{ parameters.imageName }}'
-          defaultBranch: ${{ parameters.branch }} 
+          defaultBranch: ${{ parameters.branch }}
     - id: fetch-skeleton-local
       name: Fetch Skeleton For Local Deployment
       if: ${{ parameters.deployMethod !== 'Openshift' }}
@@ -297,6 +306,8 @@ spec:
           webhookSecretKey: ${WEBHOOK__SECRET__DEFAULT__KEY}
           defaultBranch: main
           initContainer: ${INIT_CONTAINER}
+          modelInitCommand: "${INIT_CONTAINER_COMMAND}"
+          modelPath: "${MODEL_PATH}"
           appContainer: ${{ 'quay.io/redhat-ai-dev/ai-template-bootstrap-app:latest' if parameters.hostType === 'GitHub' else '${APP_INTERFACE_CONTAINER}' }}
           appPort: ${APP_PORT}
           modelServiceContainer: ${MODEL_SERVICE_CONTAINER}
@@ -306,6 +317,12 @@ spec:
           vllmModelServiceContainer: ${VLLM_CONTAINER}
           vllmModelName: ${VLLM_MODEL_NAME}
           maxModelLength: ${VLLM_MAX_MODEL_LEN}
+          modelServerName: ${{ parameters.modelServer }}
+          modelServiceSrcVLLM: ${MODEL_SERVICE_SRC_VLLM}
+          modelServiceSrcOther: ${MODEL_SERVICE_SRC_OTHER}
+          imageRegistry: ${{ parameters.imageRegistry }}
+          imageOrg: ${{ parameters.imageOrg }}
+          imageName: ${{ parameters.imageName }}
     - action: fs:rename
       id: renameComponentDir
       name: Rename Component Directory

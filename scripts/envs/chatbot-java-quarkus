@@ -36,3 +36,5 @@ export SUPPORT_LLM=true
 export APP_INTERFACE_CONTAINER="quay.io/redhat-ai-dev/chatbot:latest"
 
 export TEMPLATE_SOURCE_URL="https://github.com/maysunfaisal/ai-lab-samples/tree/quarkus-1/chatbot-java-quarkus"
+
+# application configuration

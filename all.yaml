@@ -7,3 +7,4 @@ spec:
   targets:
     - ./templates/sampleapp/template.yaml
     - ./templates/non-ai-lab-chatbot/template.yaml
+    - ./templates/chatbot-java-quarkus/template.yaml
