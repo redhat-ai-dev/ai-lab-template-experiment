@@ -26,4 +26,4 @@ As a user you will be able to customize each section of the template, such as:
 
 - Image registry and image name
 
-For more information please check out our general template documentation in our [source code repository](https://github.com/redhat-ai-dev/ai-lab-template) as well as the source code for this template's generated application [here](https://github.com/maysunfaisal/ai-lab-samples/tree/quarkus-1/chatbot-java-quarkus)!
+For more information please check out our general template documentation in our [source code repository](https://github.com/redhat-ai-dev/ai-lab-template-experiment) as well as the source code for this template's generated application [here](https://github.com/maysunfaisal/ai-lab-samples/tree/quarkus-1/chatbot-java-quarkus)!

@@ -6,6 +6,8 @@ metadata:
   title: Experimental Non AI Lab Chatbot Application
   description: Custom chatbot application example that is independent from Podman AI Lab recipes.
   tags: ["ai", "llamacpp", "python", "experimental"]
+  annotations:
+    backstage.io/techdocs-ref: dir:.
 spec:
   type: service
   # These parameters are used to generate the input form in the frontend, and are
@@ -54,7 +56,7 @@ spec:
                 namespace:
                   title: Deployment Namespace
                   type: string
-                  default: rhtap-app
+                  default: rhdh-app
                   ui:autofocus: true
                   ui:options:
                     rows: 5
@@ -181,7 +183,14 @@ spec:
           appPort: 8501
           appRunCommand: "streamlit run src/sample-app.py"
           modelServiceContainer: quay.io/ai-lab/llamacpp_python:latest
-          modelServicePort: 8001          
+          modelServicePort: 8001
+          customModelName: ${{ parameters.modelName }}
+          modelName: 
+          modelSrc: 
+          modelServerName: ${{ parameters.modelServer }}
+          customModelAndModelServerSelected: ${{ true if parameters.modelServer === 'Existing model server' else false }}
+          modelServiceSrcVLLM: 
+          modelServiceSrcOther:      
     # Renders all the template variables into the files and directory names and content, and places the result in the workspace.
     - id: fetch-skeleton
       name: Fetch Skeleton
@@ -201,7 +210,7 @@ spec:
           tags: '["ai", "llamacpp", "python", "experimental"]'
           owner: ${{ parameters.owner }} 
           repoSlug: '${{ parameters.imageOrg }}/${{ parameters.imageName }}'
-          defaultBranch: ${{ parameters.branch }} 
+          defaultBranch: ${{ parameters.branch }}
     - id: fetch-skeleton-local
       name: Fetch Skeleton For Local Deployment
       if: ${{ parameters.deployMethod !== 'Openshift' }}
@@ -297,6 +306,8 @@ spec:
           webhookSecretKey: webhook.secret
           defaultBranch: main
           initContainer: quay.io/redhat-ai-dev/granite-7b-lab:latest
+          modelInitCommand: "['/usr/bin/install', '/model/model.file', '/shared/']"
+          modelPath: "/model/model.file"
           appContainer: ${{ 'quay.io/redhat-ai-dev/ai-template-bootstrap-app:latest' if parameters.hostType === 'GitHub' else 'quay.io/redhat-ai-dev/non-ai-lab-chatbot:latest' }}
           appPort: 8501
           modelServiceContainer: quay.io/ai-lab/llamacpp_python:latest
@@ -306,6 +317,12 @@ spec:
           vllmModelServiceContainer: 
           vllmModelName: 
           maxModelLength: 
+          modelServerName: ${{ parameters.modelServer }}
+          modelServiceSrcVLLM: 
+          modelServiceSrcOther: 
+          imageRegistry: ${{ parameters.imageRegistry }}
+          imageOrg: ${{ parameters.imageOrg }}
+          imageName: ${{ parameters.imageName }}
     - action: fs:rename
       id: renameComponentDir
       name: Rename Component Directory
