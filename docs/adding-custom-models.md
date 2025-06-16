@@ -6,7 +6,7 @@ For example there is a [custom model](https://github.com/redhat-ai-dev/ai-lab-te
 
 ## Setup
 
-In order to add your own model(s) to the AI Lab extension you need to edit the [`user-catalog.json`](./skeleton/local-deploy/deployment/user-catalog.json) that is included as part of the software template. This file is what tells the extension what to import. The following steps can be taken to properly add a new model to the `user-catalog.json` file.
+In order to add your own model(s) to the AI Lab extension you need to edit the [`user-catalog.json`](../skeleton/local-deploy/deployment/user-catalog.json) that is included as part of the software template. This file is what tells the extension what to import. The following steps can be taken to properly add a new model to the `user-catalog.json` file.
 
 ### Step 1: Finding The Model
 - Navigate to [Hugging Face](https://huggingface.co/) and find a suitable [model](https://huggingface.co/models).
@@ -21,7 +21,7 @@ In order to add your own model(s) to the AI Lab extension you need to edit the [
 ![Model Info](./assets/model-info.png)
 
 ### Step 2: Importing The Model
-- Referencing the structure of [`user-catalog.json`](./skeleton/local-deploy/deployment/user-catalog.json), come up with an `id`, `name` and `description` for your imported model. Due to the resource restrictions typically experienced in local deployment you can leave `hw` as `CPU`. `registry` will be the repository you found the model (i.e. Hugging Face).
+- Referencing the structure of [`user-catalog.json`](../skeleton/local-deploy/deployment/user-catalog.json), come up with an `id`, `name` and `description` for your imported model. Due to the resource restrictions typically experienced in local deployment you can leave `hw` as `CPU`. `registry` will be the repository you found the model (i.e. Hugging Face).
 
 ![Model Example](./assets/model-example-1.png) 
 
@@ -32,7 +32,7 @@ In order to add your own model(s) to the AI Lab extension you need to edit the [
 
 ### Step 3: Linking Model To Application
 - Take note of the `id` you set for your model above.
-- Add the new model `id` to your application in [`user-catalog.json`](./skeleton/local-deploy/deployment/user-catalog.json):
+- Add the new model `id` to your application in [`user-catalog.json`](../skeleton/local-deploy/deployment/user-catalog.json):
 
 ![Model Example](./assets/model-example-3.png)
 
