@@ -1,5 +1,8 @@
 #  AI-lab Experimental Software Templates
 
+> [!WARNING]
+> This repository has been retired and will no longer be maintained. It has been moved to [redhat-developer/rhdh-ai-template @ experimental](https://github.com/redhat-developer/rhdh-ai-template/tree/experimental).
+
 New candidate AI templates can be added under the `templates` folder. See `templates/sampleapp` for a sample template directory structure. Each template should have its own sub-directory under the templates folder.
 
 ## Usage
